@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ToDoWebApp</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css} " />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+    <style>
+        body{
+            background-color: darkgrey;
+        }
+        a {
+            text-decoration: none;
+            color: aliceblue;
+        }
+        a:hover {
+            COLOR: green;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+<nav class="navbar navbar-light bg-light">
+<!--    <ul class="nav justify-content-right">-->
+<!--        <li>-->
+<!--            <th:block th:if="${session.email != null}">-->
+<!--                <h5 style="color: white">Welcome  <span th:text="${session.getAttribute('name')}"></span></h5>-->
+<!--            </th:block>-->
+<!--        </li>-->
+<!--    </ul>-->
+    <div class="container-fluid">
+        <button class="btn btn-secondary">
+            <a th:href="@{/}">Logout</a>
+        </button>
+    </div>
+</nav>
+</header>
+<main class="container">
+<div class="container my-2">
+    <h1 class="text-center">Activity Tracker</h1>
+        <hr />
+        <p th:text="|Happy ${today}|">Today</p>
+    <nav>
+        <a class="btn btn-success" th:href="@{/addNewTask}">Add Activity!</a>
+        <a class="btn btn-success" th:href="@{/task/{status}(status = 'PENDING')}">PENDING!</a>
+        <a class="btn btn-success" th:href="@{/task/{status}(status = 'IN_PROGRESS')}">IN_PROGRESS!</a>
+        <a class="btn btn-success" th:href="@{/task/{status}(status = 'COMPLETED')}">COMPLETED!</a>
+    </nav>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+
+        <tr>
+            <th> Task Name </th>
+            <th> Task Description </th>
+            <th> Task Status </th>
+            <th> Created Date </th>
+            <th> Updated Date </th>
+            <th> Completed Date </th>
+            <th  class="px-5">Actions</th>
+        </tr>
+
+        </thead>
+        <tbody>
+
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.title}"></td>
+            <td th:text="${task.description}"></td>
+            <td th:text="${task.status}"></td>
+            <td th:text="${task.createdAt}"></td>
+            <td th:text="${task.updatedAt}"></td>
+            <td th:text="${task.completedAt}"></td>
+            <td>
+<!--                <button class="btn btn-warning"><a th:href="@{/editPage/{id}(id=${task.id})}">Update</a></button>-->
+<!--                <button class="btn btn-danger"><a th:href="@{/delete/{id}(id=${task.id})}">Delete</a></button>-->
+                <!--                <button class="btn btn-danger"><a th:href="@{/viewTask/{id}(id=${task.id})}">ViewTask</a></button>-->
+
+                <a th:href="@{/editPage/{id}(id=${task.id})}" class="text-secondary" data-mdb-toggle="tooltip" title="Update"><i class="fas fa-pencil-alt me-3" ></i></a>
+                <a th:href="@{/delete/{id}(id=${task.id})}" class="text-danger" data-mdb-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt me-3"></i></a>
+                <a th:href="@{/viewTask/{id}(id=${task.id})}" class="text-primary" data-mdb-toggle="tooltip" title="View"><i class="fa fa-eye me-3" aria-hidden="true"></i><br>
+                </a>
+                <a th:href="@{/arrow-left/{id}(id=${task.id})}" class="text-info" data-mdb-toggle="tooltip" title="move-status-backward"><i class="far fa-arrow-alt-circle-left"></i></a>
+                <a th:href="@{/arrow-right/{id}(id=${task.id})}" class="text-success" data-mdb-toggle="tooltip" title="move-status-forward"><i class="far fa-arrow-alt-circle-right"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</main>
+
+<footer class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-muted">&copy; 2022 Yiba-Ben Global. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>
